@@ -6,18 +6,15 @@ from attention_utils import extract_attention
 st.set_page_config(page_title="AI Review Analyzer", layout="wide")
 
 @st.cache_resource
-def load_model():
-    device = torch.device("cpu")  # Streamlit Cloud = CPU only
 
-    tokenizer = BertTokenizer.from_pretrained(
-        "your-hf-username/bert-review-model"
-    )
+ def load_model():
+    device = torch.device("cpu")  # Streamlit Cloud = CPU
+
+    tokenizer = BertTokenizer.from_pretrained("Agr07/bert_fake")
     model = BertForSequenceClassification.from_pretrained(
-        "your-hf-username/bert-review-model",
+        "Agr07/bert_fake",
         output_attentions=True
-    )
-
-    model.to(device)
+    )   model.to(device)
     model.eval()
 
     return model, tokenizer, device
@@ -66,3 +63,4 @@ if st.button("Analyze Review"):
             html += f"<span style='background-color:rgba(255,0,0,{score})'>{token} </span>"
 
         st.markdown(html, unsafe_allow_html=True)
+
