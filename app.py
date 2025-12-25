@@ -5,16 +5,18 @@ from attention_utils import extract_attention
 
 st.set_page_config(page_title="AI Review Analyzer", layout="wide")
 
-@st.cache_resource
 
- def load_model():
-    device = torch.device("cpu")  # Streamlit Cloud = CPU
+@st.cache_resource
+def load_model():
+    device = torch.device("cpu")  # Streamlit Cloud is CPU-only
 
     tokenizer = BertTokenizer.from_pretrained("Agr07/bert_fake")
     model = BertForSequenceClassification.from_pretrained(
         "Agr07/bert_fake",
         output_attentions=True
-    )   model.to(device)
+    )
+
+    model.to(device)
     model.eval()
 
     return model, tokenizer, device
@@ -22,7 +24,7 @@ st.set_page_config(page_title="AI Review Analyzer", layout="wide")
 
 model, tokenizer, device = load_model()
 
-st.title("🛒 AI Product Review Quality Analyzer (BERT)")
+st.title("🛒 AI Product Review Quality Analyzer")
 
 review = st.text_area("Paste product review here", height=150)
 
@@ -60,7 +62,12 @@ if st.button("Analyze Review"):
         for token, score in token_scores:
             if token.startswith("##"):
                 continue
-            html += f"<span style='background-color:rgba(255,0,0,{score})'>{token} </span>"
+            html += (
+                f"<span style='background-color:rgba(255,0,0,{score})'>"
+                f"{token} </span>"
+            )
 
         st.markdown(html, unsafe_allow_html=True)
+
+
 
