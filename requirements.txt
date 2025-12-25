@@ -1,0 +1,19 @@
+<<<<<<< HEAD
+torch
+transformers
+datasets
+streamlit
+pandas
+numpy
+accelerate>=0.26.0
+
+=======
+torch
+transformers
+datasets
+streamlit
+pandas
+numpy
+accelerate>=0.26.0
+
+>>>>>>> fbfc4dbc95c39b25f2c7213a50abab057770a44f
